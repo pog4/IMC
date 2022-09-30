@@ -15,8 +15,10 @@ class imcController extends Controller
     public function cal() {
         $imcController = new imcController();
 
-        $imc = $imcController->saude();
+        $idade = $imcController->calcula_idade();
+        $pontosimc = $imcController->calcular();
+        $imc = $imcController->classificassao();
 
-        return view('resultado',['IMC'=>$imc]);
+        return view('resultado',['idade'=>$idade,'pontos'=>$pontosimc,'IMC'=>$imc]);
     }
 }

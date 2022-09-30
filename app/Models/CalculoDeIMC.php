@@ -9,15 +9,38 @@ class CalculoDeIMC extends Model
 {
     use HasFactory;
 
+    function calcula_idade($nascimento) {
+        $nascimento=explode('-',$nascimento);
+        $data=date('d/m/Y'); $data=explode('/',$data);
+        $anos=$data[2]-$nascimento[0]; 
+        if($nascimento[1] > $data[1]) return $anos-1; 
+        if($nascimento[1] == $data[1])
+        { 
+           if($nascimento[3] <= $data[0]) {
+              return $anos;
+           }
+           else {
+               return $anos-1;
+            }
+        }
+      return $anos;
+    }
+
+
     public function calcular() {
         $altura = $_GET['altura'];
         $peso = $_GET['peso'];
 
-        $IMC = round(($peso / ($altura * $altura)),2);
+        return round($peso / ($altura * $altura));
 
     }
     
     public function classificassao(){
+        $altura = $_GET['altura'];
+        $peso = $_GET['peso'];
+        
+        $IMC = ($peso / ($altura * $altura));
+
         if ($IMC <= 0) {
             $resultado = "ERRO";
         }
@@ -36,18 +59,7 @@ class CalculoDeIMC extends Model
         elseif ($IMC >= 40){
             $resultado = "MÓRBIDO";
         }
-    }
 
-    public function saude() {
-        $nome = $_GET['nome'];
-        $pes = $_GET['peso'];
-        $alt = $_GET['altura'];
-
-
-        $texto = "$nome você tem $data anos, sua altura é $alt, seu peso é $pes e seu IMC é: $IMC. 
-        Pelo cálculo do IMC você está classificado como “ $result ”";
-
-        return $texto;
-
+        return $resultado;
     }
 }

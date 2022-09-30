@@ -11,7 +11,7 @@
 <h1>Resultado</h1>
 
 
-<p>{{$IMC}}</p>
+<p></p>
 
 
 
